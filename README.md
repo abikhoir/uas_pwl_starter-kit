@@ -78,4 +78,4 @@ Berikut adalah tangkapan layar dari beberapa fitur utama aplikasi:
 
 ---
 Dibuat oleh: 
-[Nama: Achmad Diky Setiawan, NIM: 23091397178, Kelas: 2023F](https://github.com/dikysetiawan21)
+[Nama: Ronald Budi Abdul Wahid, NIM: 23091397142, Kelas: 2023E](https://github.com/Ronal62/PWL_UAS.git)
