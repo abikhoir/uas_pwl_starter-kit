@@ -8,8 +8,8 @@
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">{{ $news->title }}</h6>
             <div>
-                <a href="{{ route('news.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
-                @if(Auth::user()->role == 'admin' || (Auth::user()->role == 'wartawan' && $news->user_id == Auth::id()))
+                <a href="{{ auth()->check() && in_array(auth()->user()->role, ['admin', 'wartawan']) ? route('news.index') : route('public.news') }}" class="btn btn-secondary btn-sm">Kembali</a>
+                @if(auth()->check() && (auth()->user()->role == 'admin' || (auth()->user()->role == 'wartawan' && $news->user_id == auth()->id())))
                     <a href="{{ route('news.edit', $news->slug) }}" class="btn btn-warning btn-sm">Edit</a>
                 @endif
             </div>
