@@ -8,7 +8,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Tampilkan view dashboard utama
+        // Jika user biasa, redirect ke public-news
+        if (auth()->user() && auth()->user()->role === 'user') {
+            return redirect()->route('public.news');
+        }
+        // Selain itu (admin/editor/wartawan), tampilkan dashboard
         return view('dashboard');
     }
 }

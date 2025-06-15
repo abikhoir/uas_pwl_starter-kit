@@ -1,27 +1,132 @@
-@extends('layouts.guest')
-
-@section('content')
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NewsPortal - Forgot Password</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #EEEEEE;
+      font-family: 'Inter', sans-serif;
+      color: #222831;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    a { color: #00ADB5; text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
+    a:hover, a:focus { color: #018a95; outline: none; }
+    button, input { font-family: inherit; font-size: 1rem; }
+    .forgot-container {
+      background: #FFFFFF;
+      max-width: 400px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 48px 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      color: #222831;
+      user-select: none;
+      text-align: center;
+    }
+    form { display: flex; flex-direction: column; gap: 24px; }
+    label { font-weight: 600; color: #393E46; margin-bottom: 8px; display: block; }
+    input[type="email"] {
+      padding: 14px 16px;
+      border: 2px solid #393E46;
+      border-radius: 20px;
+      transition: border-color 0.3s ease;
+      width: 100%;
+      color: #222831;
+    }
+    input::placeholder { color: #8a8f96; }
+    input:focus {
+      border-color: #00ADB5;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 173, 181, 0.4);
+    }
+    button[type="submit"] {
+      background: linear-gradient(135deg, #00ADB5 0%, #018a95 100%);
+      border: none;
+      color: #EEEEEE;
+      font-weight: 700;
+      padding: 14px 0;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      box-shadow: 0 6px 20px rgba(0, 173, 181, 0.4);
+      width: 100%;
+    }
+    button[type="submit"]:hover, button[type="submit"]:focus {
+      box-shadow: 0 10px 28px rgba(1,138,149,0.7);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .back-to-login {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #393E46cc;
+      user-select: none;
+    }
+    .back-to-login a {
+      font-weight: 600;
+      color: #00ADB5;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .back-to-login a:hover, .back-to-login a:focus {
+      color: #018a95;
+      outline: none;
+    }
+    @media (max-width: 440px) {
+      .forgot-container { padding: 36px 24px; }
+      h1 { font-size: 2rem; }
+      button[type="submit"] { font-size: 0.95rem; padding: 12px 0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="forgot-container" aria-label="Forgot password form">
+      <h1>Forgot Password</h1>
+      @if (session('status'))
+        <div style="color: #00ADB5; text-align:center; margin-bottom:18px; font-weight:600;">{{ session('status') }}</div>
+      @endif
+      <form method="POST" action="{{ route('password.email') }}" novalidate>
         @csrf
-
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+          <label for="email">Enter your Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            autocomplete="email"
+            value="{{ old('email') }}"
+            autofocus
+          />
+          @error('email')
+            <div style="color:#e53935; font-size:0.95rem; margin-top:4px;">{{ $message }}</div>
+          @enderror
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-@endsection
+        <button type="submit" aria-label="Send password reset instructions">Send Reset Link</button>
+      </form>
+      <p class="back-to-login">
+        Remembered your password? <a href="{{ route('login') }}">Login here</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

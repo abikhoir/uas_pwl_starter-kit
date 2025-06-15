@@ -112,24 +112,7 @@
                                 </form>
                             </div>
                         </li>
-                        <!-- Beranda (Show only for user role) -->
-                        @if (auth()->check() && auth()->user()->role === 'user')
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link" href="{{ route('public.news') }}" id="alertsDropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-home fa-fw"></i>
-                                    <span class="ml-2 mt-1">Beranda</span>
-                                </a>
-                            </li>
-                        @endif
-                        <!-- Kategory (Show only for user role) -->
-                        @if (auth()->check() && auth()->user()->role === 'user')
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-home fa-fw"></i>
-                                    <span class="ml-2 mt-1">Kategory</span>
-                                </a>
-                            </li>
-                        @endif
+                        <!-- Beranda & Kategory dihapus untuk user biasa -->
                         <div class="topbar-divider d-none d-sm-block"></div>
                         @guest
                             <li class="nav-item">
@@ -173,7 +156,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright © @iamrnldo 2025</span>
+                        <span>Copyright © @abikhoir {{ date('Y') }}</span>
                     </div>
                 </div>
             </footer>
